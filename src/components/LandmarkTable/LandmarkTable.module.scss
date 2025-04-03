@@ -1,0 +1,31 @@
+.table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Стили для заголовков */
+.table .Table-Head {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Стили для строк */
+.table .Table-Row {
+    transition: background 0.3s ease;
+}
+
+.table .Table-Row:hover {
+    background: #e6f0ff;
+}
+
+/* Стили для ссылок на карты */
+.table a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.table a:hover {
+    text-decoration: underline;
+}

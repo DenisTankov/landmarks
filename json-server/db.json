@@ -1,0 +1,28 @@
+{
+  "landmarks": [
+    {
+      "id": "1",
+      "name": "Эйфелева башня",
+      "description": "Знаменитая башня в Париже",
+      "dateAdded": "2024-04-01T12:00:00Z",
+      "rating": 5,
+      "photoUrl": "https://en.wikipedia.org/wiki/Eiffel_Tower#/media/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg",
+      "location": "Париж, Франция",
+      "latitude": 48.8584,
+      "longitude": 2.2945,
+      "status": "в планах"
+    },
+    {
+      "id": "2",
+      "name": "Колизей",
+      "description": "Древнеримский амфитеатр",
+      "dateAdded": "2024-04-02T14:30:00Z",
+      "rating": 4,
+      "photoUrl": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BB%D0%B8%D0%B7%D0%B5%D0%B9#/media/%D0%A4%D0%B0%D0%B9%D0%BB:Colosseo_2020.jpg",
+      "location": "Рим, Италия",
+      "latitude": 41.8902,
+      "longitude": 12.4922,
+      "status": "осмотрена"
+    }
+  ]
+}
