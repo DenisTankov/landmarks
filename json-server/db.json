@@ -23,6 +23,18 @@
       "latitude": 41.8902,
       "longitude": 12.4922,
       "status": "осмотрена"
+    },
+    {
+      "id": "07de",
+      "name": "Кёльнский собор",
+      "description": "римско-католический готический собор в немецком городе Кёльне",
+      "photoUrl": "https://ru.wikipedia.org/wiki/%D0%9A%D1%91%D0%BB%D1%8C%D0%BD%D1%81%D0%BA%D0%B8%D0%B9_%D1%81%D0%BE%D0%B1%D0%BE%D1%80#/media/%D0%A4%D0%B0%D0%B9%D0%BB:K%C3%B6lner_Dom_von_Osten.jpg",
+      "location": "Германия, Кёльн",
+      "latitude": 50.941357,
+      "longitude": 6.958307,
+      "rating": 5,
+      "status": "в планах",
+      "dateAdded": "2025-04-04T15:04:36.574Z"
     }
   ]
 }
