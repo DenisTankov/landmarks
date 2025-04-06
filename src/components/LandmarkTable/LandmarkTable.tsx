@@ -1,9 +1,10 @@
-import {Button, Icon, Select, Table, TextInput} from '@gravity-ui/uikit';
+import {Button, Icon, Table} from '@gravity-ui/uikit';
 import {useEffect, useMemo, useState} from 'react';
 import {Landmark} from '../../types/Landmark';
-import {PencilIcon} from '../../ui/PencilIcon ';
-import {TrashBinIcon} from '../../ui/TrashBinIcon';
+import {PencilIcon} from '../../assets/icons/PencilIcon ';
+import {TrashBinIcon} from '../../assets/icons/TrashBinIcon';
 import {getMapLink} from '../../utils/getMapLink';
+import {LandmarkFilters} from '../LandmarkFilters/LandmarkFilters';
 import styles from './LandmarkTable.module.scss';
 
 interface LandmarkTableProps {
@@ -72,10 +73,10 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
         status: item.status === 'в планах' ? '🟢 В планах' : '🔵 Осмотрена',
         actions: isAdmin ? (
             <>
-                <Button className={styles.btn} onClick={() => onEdit(item)} view="outlined">
+                <Button className={styles.btn} onClick={() => onEdit(item)} view="normal">
                     <Icon data={PencilIcon} size={16} />
                 </Button>
-                <Button className={styles.btn} onClick={() => onDelete(item.id)} view="outlined">
+                <Button className={styles.btn} onClick={() => onDelete(item.id)} view="normal">
                     <Icon data={TrashBinIcon} size={16} />
                 </Button>
             </>
@@ -98,42 +99,19 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
 
     return (
         <div className={styles.tableWrapper}>
-            <div style={{marginBottom: '1rem', fontWeight: 'bold'}}>
+            <div className={styles.landmarksCounter}>
                 Всего в таблице: {filteredData.length} достопримечательностей
             </div>
-
-            <div style={{display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap'}}>
-                <TextInput
-                    placeholder="Поиск по названию"
-                    value={search}
-                    onUpdate={setSearch}
-                    style={{minWidth: 200}}
-                />
-                <Select
-                    placeholder="Статус"
-                    value={statusFilter}
-                    onUpdate={setStatusFilter}
-                    multiple
-                    options={[
-                        {value: 'в планах', content: 'В планах'},
-                        {value: 'осмотрена', content: 'Осмотрена'},
-                    ]}
-                />
-                <Select
-                    placeholder="Сортировка"
-                    value={[sortKey]}
-                    onUpdate={([key]) => setSortKey(key as 'name' | 'rating' | 'dateAdded')}
-                    options={[
-                        {value: 'name', content: 'Название'},
-                        {value: 'rating', content: 'Рейтинг'},
-                        {value: 'dateAdded', content: 'Дата добавления'},
-                    ]}
-                />
-                <Button view="flat" onClick={() => setSortAsc((prev) => !prev)}>
-                    {sortAsc ? 'По возрастанию' : 'По убыванию'}
-                </Button>
-            </div>
-
+            <LandmarkFilters
+                search={search}
+                setSearch={setSearch}
+                statusFilter={statusFilter}
+                setStatusFilter={setStatusFilter}
+                sortKey={sortKey}
+                setSortKey={setSortKey}
+                sortAsc={sortAsc}
+                setSortAsc={setSortAsc}
+            />
             <Table className={styles.table} columns={columns} data={rows} />
         </div>
     );

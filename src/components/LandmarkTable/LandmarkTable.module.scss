@@ -51,3 +51,12 @@
 .table thead th {
     @extend .headerCell;
 }
+
+.landmarksCounter {
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.table :global(thead th) {
+    color: var(--g-color-text-primary);
+}
