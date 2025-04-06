@@ -1,5 +1,5 @@
-import {Button, Icon, Table} from '@gravity-ui/uikit';
-import {useEffect, useState} from 'react';
+import {Button, Icon, Select, Table, TextInput} from '@gravity-ui/uikit';
+import {useEffect, useMemo, useState} from 'react';
 import {Landmark} from '../../types/Landmark';
 import {PencilIcon} from '../../ui/PencilIcon ';
 import {TrashBinIcon} from '../../ui/TrashBinIcon';
@@ -9,10 +9,16 @@ import styles from './LandmarkTable.module.scss';
 interface LandmarkTableProps {
     data: Landmark[];
     isAdmin: boolean;
+    onEdit: (landmark: Landmark) => void;
+    onDelete: (id: string) => void;
 }
 
-export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin}) => {
+export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEdit, onDelete}) => {
     const [mapLinks, setMapLinks] = useState<{[id: string]: string}>({});
+    const [search, setSearch] = useState('');
+    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [sortKey, setSortKey] = useState<'name' | 'rating' | 'dateAdded'>('name');
+    const [sortAsc, setSortAsc] = useState(true);
 
     useEffect(() => {
         const fetchLinks = async () => {
@@ -27,14 +33,25 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin}) => 
         fetchLinks();
     }, [data]);
 
-    const handleDelete = async (id: string) => {
-        await fetch(`http://localhost:3000/landmarks/${id}`, {
-            method: 'DELETE',
-        });
-        window.location.reload();
-    };
+    const filteredData = useMemo(() => {
+        return data
+            .filter(
+                (item) =>
+                    item.name.toLowerCase().includes(search.toLowerCase()) &&
+                    (statusFilter.length === 0 || statusFilter.includes(item.status)),
+            )
+            .sort((a, b) => {
+                const aValue =
+                    sortKey === 'dateAdded' ? new Date(a.dateAdded).getTime() : a[sortKey];
+                const bValue =
+                    sortKey === 'dateAdded' ? new Date(b.dateAdded).getTime() : b[sortKey];
+                if (aValue < bValue) return sortAsc ? -1 : 1;
+                if (aValue > bValue) return sortAsc ? 1 : -1;
+                return 0;
+            });
+    }, [data, search, statusFilter, sortKey, sortAsc]);
 
-    const rows = data.map((item) => ({
+    const rows = filteredData.map((item) => ({
         id: item.id,
         name: item.name,
         description: item.description,
@@ -55,10 +72,10 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin}) => 
         status: item.status === 'в планах' ? '🟢 В планах' : '🔵 Осмотрена',
         actions: isAdmin ? (
             <>
-                <Button className={styles.btn} onClick={() => alert(`Редактировать ${item.name}`)}>
+                <Button className={styles.btn} onClick={() => onEdit(item)} view="outlined">
                     <Icon data={PencilIcon} size={16} />
                 </Button>
-                <Button className={styles.btn} view="normal" onClick={() => handleDelete(item.id)}>
+                <Button className={styles.btn} onClick={() => onDelete(item.id)} view="outlined">
                     <Icon data={TrashBinIcon} size={16} />
                 </Button>
             </>
@@ -80,8 +97,43 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin}) => 
     ];
 
     return (
-        <div>
-            <div>Всего в таблице: {data.length} достопримечательностей</div>
+        <div className={styles.tableWrapper}>
+            <div style={{marginBottom: '1rem', fontWeight: 'bold'}}>
+                Всего в таблице: {filteredData.length} достопримечательностей
+            </div>
+
+            <div style={{display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap'}}>
+                <TextInput
+                    placeholder="Поиск по названию"
+                    value={search}
+                    onUpdate={setSearch}
+                    style={{minWidth: 200}}
+                />
+                <Select
+                    placeholder="Статус"
+                    value={statusFilter}
+                    onUpdate={setStatusFilter}
+                    multiple
+                    options={[
+                        {value: 'в планах', content: 'В планах'},
+                        {value: 'осмотрена', content: 'Осмотрена'},
+                    ]}
+                />
+                <Select
+                    placeholder="Сортировка"
+                    value={[sortKey]}
+                    onUpdate={([key]) => setSortKey(key as 'name' | 'rating' | 'dateAdded')}
+                    options={[
+                        {value: 'name', content: 'Название'},
+                        {value: 'rating', content: 'Рейтинг'},
+                        {value: 'dateAdded', content: 'Дата добавления'},
+                    ]}
+                />
+                <Button view="flat" onClick={() => setSortAsc((prev) => !prev)}>
+                    {sortAsc ? 'По возрастанию' : 'По убыванию'}
+                </Button>
+            </div>
+
             <Table className={styles.table} columns={columns} data={rows} />
         </div>
     );

@@ -4,15 +4,11 @@
     overflow: hidden;
 }
 
-/* Стили для заголовков */
-
 .table .Table-Head {
     background-color: #f5f5f5;
     font-weight: bold;
     text-align: left;
 }
-
-/* Стили для строк */
 
 .table .Table-Row {
     transition: background 0.3s ease;
@@ -21,8 +17,6 @@
 .table .Table-Row:hover {
     background: #e6f0ff;
 }
-
-/* Стили для ссылок на карты */
 
 .table a {
     color: #007bff;
@@ -35,4 +29,25 @@
 
 .btn {
     margin-left: 5px;
+}
+
+.tableWrapper {
+    margin-top: 24px;
+    padding: 24px;
+    border: 1px solid var(--g-color-base-brand);
+    border-radius: 8px;
+    background-color: var(--g-color-base-background);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.headerCell {
+    font-weight: bold;
+    background-color: var(--g-color-base-selection);
+    color: var(--g-color-text-light-primary);
+    text-transform: uppercase;
+    padding: 12px;
+}
+
+.table thead th {
+    @extend .headerCell;
 }

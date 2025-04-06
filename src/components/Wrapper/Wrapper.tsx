@@ -39,7 +39,6 @@ export const Wrapper: React.FC<AppProps> = ({children}) => {
                     <div className={b('header')}>
                         <div className={b('logo')}>
                             <div className={b('gravity-logo', {dark: isDark})} />
-                            <div className={b('vite-logo')} />
                         </div>
                     </div>
                     <div className={b('content')}>{children}</div>
