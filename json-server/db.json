@@ -20,7 +20,7 @@
       "latitude": 41.8902,
       "longitude": 12.4922,
       "rating": 4,
-      "status": "в планах",
+      "status": "осмотрена",
       "dateAdded": "2024-04-02T14:30:00Z",
       "id": "2"
     },
@@ -37,7 +37,7 @@
       "id": "07de"
     },
     {
-      "name": "Эйфелева башняzzz",
+      "name": "Эйфелева башня",
       "description": "Знаменитая башня в Париже",
       "photoUrl": "https://en.wikipedia.org/wiki/Eiffel_Tower#/media/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg",
       "location": "Париж, Франция",
@@ -71,18 +71,6 @@
       "status": "в планах",
       "dateAdded": "2025-04-04T15:04:36.574Z",
       "id": "078e"
-    },
-    {
-      "id": "ca87",
-      "name": "ere",
-      "description": "dfdf",
-      "photoUrl": "dfd",
-      "location": "fdfdf",
-      "latitude": 232323,
-      "longitude": 23232,
-      "rating": 1,
-      "status": "в планах",
-      "dateAdded": "2025-04-07T16:59:57.436Z"
     }
   ]
 }
