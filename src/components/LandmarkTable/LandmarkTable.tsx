@@ -1,11 +1,13 @@
 import {Button, Icon, Table} from '@gravity-ui/uikit';
 import {useEffect, useMemo, useState} from 'react';
-import {Landmark} from '../../types/Landmark';
 import {PencilIcon} from '../../assets/icons/PencilIcon ';
 import {TrashBinIcon} from '../../assets/icons/TrashBinIcon';
+import {Landmark} from '../../types/Landmark';
 import {getMapLink} from '../../utils/getMapLink';
 import {LandmarkFilters} from '../LandmarkFilters/LandmarkFilters';
 import styles from './LandmarkTable.module.scss';
+import {Text} from '@gravity-ui/uikit';
+import {pluralizeLandmark} from '../../utils/plural';
 
 interface LandmarkTableProps {
     data: Landmark[];
@@ -100,8 +102,11 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
     return (
         <div className={styles.tableWrapper}>
             <div className={styles.landmarksCounter}>
-                Всего в таблице: {filteredData.length} достопримечательностей
+                <Text variant="subheader-1" color="primary">
+                    Всего в таблице: {filteredData.length} {pluralizeLandmark(filteredData.length)}
+                </Text>
             </div>
+
             <LandmarkFilters
                 search={search}
                 setSearch={setSearch}
@@ -112,7 +117,12 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
                 sortAsc={sortAsc}
                 setSortAsc={setSortAsc}
             />
-            <Table className={styles.table} columns={columns} data={rows} />
+            <Table
+                className={styles.table}
+                columns={columns}
+                data={rows}
+                emptyMessage="Нет доступных достопримечательностей"
+            />
         </div>
     );
 };

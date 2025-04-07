@@ -33,7 +33,8 @@
 
 .tableWrapper {
     margin-top: 24px;
-    padding: 24px;
+    padding-left: 10px;
+    padding-right: 10px;
     border: 1px solid var(--g-color-base-brand);
     border-radius: 8px;
     background-color: var(--g-color-base-background);
@@ -53,10 +54,15 @@
 }
 
 .landmarksCounter {
+    margin-top: 1rem;
     margin-bottom: 1rem;
-    font-weight: bold;
 }
 
 .table :global(thead th) {
     color: var(--g-color-text-primary);
+}
+
+.table :global(.g-table) {
+    max-height: unset !important;
+    overflow: visible !important;
 }

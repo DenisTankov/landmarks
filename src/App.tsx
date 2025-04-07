@@ -8,7 +8,7 @@ const App = () => {
 
     return (
         <Wrapper>
-            <Button view="action" size="l" onClick={() => setIsAdmin((prev) => !prev)}>
+            <Button view="outlined-action" size="l" onClick={() => setIsAdmin((prev) => !prev)}>
                 {isAdmin ? 'Выйти из режима администратора' : 'Войти в режим администратора'}
             </Button>
             <TablePage isAdmin={isAdmin} onExitAdmin={() => setIsAdmin(false)} />

@@ -5,7 +5,6 @@ $block: '.wrapper';
     flex-direction: column;
     align-items: center;
     min-height: 100%;
-    padding: 20px;
     box-sizing: border-box;
 
     &__theme-button {
@@ -19,7 +18,7 @@ $block: '.wrapper';
         align-items: center;
         justify-content: center;
         flex: 1;
-        margin-bottom: 56px;
+        //   margin-bottom: 56px;
     }
 
     &__header {
@@ -32,7 +31,7 @@ $block: '.wrapper';
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
+        //   margin-bottom: 20px;
     }
 
     &__gravity-logo {
@@ -46,16 +45,6 @@ $block: '.wrapper';
         &_dark {
             background-image: url('../../assets/gravity-logo-dark.svg');
         }
-    }
-
-    &__vite-logo {
-        width: 160px;
-        height: 50px;
-        margin-top: 12px;
-        background-image: url('../../assets/vite.svg');
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
     }
 
     &__content {

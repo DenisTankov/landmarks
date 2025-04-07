@@ -2,6 +2,7 @@ import {Button, Select} from '@gravity-ui/uikit';
 import {useEffect, useRef} from 'react';
 import {Landmark} from '../../types/Landmark';
 import styles from './AddLandmarkForm.module.scss';
+import {Text} from '@gravity-ui/uikit';
 
 export const AddLandmarkForm = ({
     onLandmarkAdded,
@@ -77,7 +78,11 @@ export const AddLandmarkForm = ({
                 onEditingDone?.();
             }}
         >
-            <h2>{editingLandmark ? 'Редактировать' : 'Добавить'} достопримечательность</h2>
+            <div className={styles.formHeader}>
+                <Text variant="subheader-1" color="primary">
+                    {editingLandmark ? 'Редактировать' : 'Добавить'} достопримечательность
+                </Text>
+            </div>
             <div className={styles.grid}>
                 <input name="name" placeholder="Название" required />
                 <input name="description" placeholder="Описание" required />

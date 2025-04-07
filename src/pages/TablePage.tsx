@@ -1,3 +1,4 @@
+import {Text} from '@gravity-ui/uikit';
 import {useEffect, useState} from 'react';
 import {AddLandmarkForm} from '../components/AddLandmarkForm/AddLandmarkForm';
 import {LandmarkTable} from '../components/LandmarkTable/LandmarkTable';
@@ -38,26 +39,26 @@ export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin
     if (error) return <p>Ошибка: {error}</p>;
 
     return (
-        <div className={styles.page}>
-            <div className={styles.content}>
-                <h1>Достопримечательности</h1>
-                <LandmarkTable
-                    data={landmarks}
-                    isAdmin={isAdmin}
-                    onEdit={(landmark) => setEditingLandmark(landmark)}
-                    onDelete={handleDelete}
-                />
-                {isAdmin && (
-                    <div className={styles.formWrapper}>
-                        <AddLandmarkForm
-                            onLandmarkAdded={fetchData}
-                            editingLandmark={editingLandmark}
-                            onEditingDone={() => setEditingLandmark(null)}
-                            onCloseAdmin={onExitAdmin}
-                        />
-                    </div>
-                )}
-            </div>
+        <div>
+            <Text variant="header-1" color="primary">
+                Достопримечательности
+            </Text>
+            <LandmarkTable
+                data={landmarks}
+                isAdmin={isAdmin}
+                onEdit={(landmark) => setEditingLandmark(landmark)}
+                onDelete={handleDelete}
+            />
+            {isAdmin && (
+                <div className={styles.formWrapper}>
+                    <AddLandmarkForm
+                        onLandmarkAdded={fetchData}
+                        editingLandmark={editingLandmark}
+                        onEditingDone={() => setEditingLandmark(null)}
+                        onCloseAdmin={onExitAdmin}
+                    />
+                </div>
+            )}
         </div>
     );
 };
