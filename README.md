@@ -1,4 +1,4 @@
-# 📘 Landmark API Documentation
+# 📘 Landmarks API Documentation
 
 Базовый URL: `http://localhost:3000/landmarks`
 
@@ -67,7 +67,7 @@ GET /landmarks/1
 PUT /landmarks/1
 ```
 
-(Тело запроса аналогично POST)
+Тело запроса аналогично POST
 
 ## 🔹 DELETE /landmarks/:id
 
