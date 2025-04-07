@@ -48,12 +48,14 @@ export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin
                     onDelete={handleDelete}
                 />
                 {isAdmin && (
-                    <AddLandmarkForm
-                        onLandmarkAdded={fetchData}
-                        editingLandmark={editingLandmark}
-                        onEditingDone={() => setEditingLandmark(null)}
-                        onCloseAdmin={onExitAdmin}
-                    />
+                    <div className={styles.formWrapper}>
+                        <AddLandmarkForm
+                            onLandmarkAdded={fetchData}
+                            editingLandmark={editingLandmark}
+                            onEditingDone={() => setEditingLandmark(null)}
+                            onCloseAdmin={onExitAdmin}
+                        />
+                    </div>
                 )}
             </div>
         </div>
