@@ -1,8 +1,9 @@
 import {Button, Icon, Select, TextInput} from '@gravity-ui/uikit';
-import styles from './LandmarkFilters.module.scss';
-import {FilterCloseIcon} from '../../assets/icons/FilterCloseIcon';
+import {memo} from 'react';
 import {AscendingOrderIcon} from '../../assets/icons/AscendingOrderIcon';
 import {DescendingOrderIcon} from '../../assets/icons/DescendingOrderIcon';
+import {FilterCloseIcon} from '../../assets/icons/FilterCloseIcon';
+import styles from './LandmarkFilters.module.scss';
 
 interface LandmarkFiltersProps {
     search: string;
@@ -15,7 +16,7 @@ interface LandmarkFiltersProps {
     setSortAsc: (val: boolean) => void;
 }
 
-export const LandmarkFilters: React.FC<LandmarkFiltersProps> = ({
+export const LandmarkFiltersComponent: React.FC<LandmarkFiltersProps> = ({
     search,
     setSearch,
     statusFilter,
@@ -78,3 +79,5 @@ export const LandmarkFilters: React.FC<LandmarkFiltersProps> = ({
         </div>
     );
 };
+
+export const LandmarkFilters = memo(LandmarkFiltersComponent);

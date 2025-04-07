@@ -1,5 +1,5 @@
 import {Button, Icon, Table} from '@gravity-ui/uikit';
-import {useEffect, useMemo, useState} from 'react';
+import {memo, useEffect, useMemo, useState} from 'react';
 import {PencilIcon} from '../../assets/icons/PencilIcon ';
 import {TrashBinIcon} from '../../assets/icons/TrashBinIcon';
 import {Landmark} from '../../types/Landmark';
@@ -16,7 +16,12 @@ interface LandmarkTableProps {
     onDelete: (id: string) => void;
 }
 
-export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEdit, onDelete}) => {
+const LandmarkTableComponent: React.FC<LandmarkTableProps> = ({
+    data,
+    isAdmin,
+    onEdit,
+    onDelete,
+}) => {
     const [mapLinks, setMapLinks] = useState<{[id: string]: string}>({});
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<string[]>([]);
@@ -54,50 +59,59 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
             });
     }, [data, search, statusFilter, sortKey, sortAsc]);
 
-    const rows = filteredData.map((item) => ({
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        dateAdded: new Date(item.dateAdded).toLocaleString(),
-        rating: `⭐ ${item.rating}/5`,
-        photoUrl: (
-            <a href={item.photoUrl} target="_blank" rel="noopener noreferrer">
-                Открыть
-            </a>
-        ),
-        location: item.location,
-        coordinates: `${item.latitude}, ${item.longitude}`,
-        map: (
-            <a href={mapLinks[item.id]} target="_blank" rel="noopener noreferrer">
-                Открыть
-            </a>
-        ),
-        status: item.status === 'в планах' ? '🟢 В планах' : '🔵 Осмотрена',
-        actions: isAdmin ? (
-            <>
-                <Button className={styles.btn} onClick={() => onEdit(item)} view="normal">
-                    <Icon data={PencilIcon} size={16} />
-                </Button>
-                <Button className={styles.btn} onClick={() => onDelete(item.id)} view="normal">
-                    <Icon data={TrashBinIcon} size={16} />
-                </Button>
-            </>
-        ) : null,
-    }));
+    const rows = useMemo(() => {
+        return filteredData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            dateAdded: new Date(item.dateAdded).toLocaleString(),
+            rating: `⭐ ${item.rating}/5`,
+            photoUrl: (
+                <a href={item.photoUrl} target="_blank" rel="noopener noreferrer">
+                    Открыть
+                </a>
+            ),
+            location: item.location,
+            coordinates: `${item.latitude}, ${item.longitude}`,
+            map: (
+                <a href={mapLinks[item.id]} target="_blank" rel="noopener noreferrer">
+                    Открыть
+                </a>
+            ),
+            status: item.status === 'в планах' ? '🟢 В планах' : '🔵 Осмотрена',
+            actions: isAdmin ? (
+                <>
+                    <Button className={styles.btn} onClick={() => onEdit(item)} view="normal">
+                        <Icon data={PencilIcon} size={16} />
+                    </Button>
+                    <Button className={styles.btn} onClick={() => onDelete(item.id)} view="normal">
+                        <Icon data={TrashBinIcon} size={16} />
+                    </Button>
+                </>
+            ) : null,
+        }));
+    }, [filteredData, mapLinks, isAdmin, onEdit, onDelete]);
 
-    const columns = [
-        {id: 'id', name: 'id'},
-        {id: 'name', name: 'Название'},
-        {id: 'description', name: 'Описание'},
-        {id: 'dateAdded', name: 'Дата добавления'},
-        {id: 'rating', name: 'Рейтинг'},
-        {id: 'photoUrl', name: 'Фото'},
-        {id: 'location', name: 'Местоположение'},
-        {id: 'coordinates', name: 'Координаты'},
-        {id: 'map', name: 'Карта'},
-        {id: 'status', name: 'Статус'},
-        ...(isAdmin ? [{id: 'actions', name: 'Действия'}] : []),
-    ];
+    const columns = useMemo(() => {
+        const baseColumns = [
+            {id: 'id', name: 'id'},
+            {id: 'name', name: 'Название'},
+            {id: 'description', name: 'Описание'},
+            {id: 'dateAdded', name: 'Дата добавления'},
+            {id: 'rating', name: 'Рейтинг'},
+            {id: 'photoUrl', name: 'Фото'},
+            {id: 'location', name: 'Местоположение'},
+            {id: 'coordinates', name: 'Координаты'},
+            {id: 'map', name: 'Карта'},
+            {id: 'status', name: 'Статус'},
+        ];
+
+        if (isAdmin) {
+            baseColumns.push({id: 'actions', name: 'Действия'});
+        }
+
+        return baseColumns;
+    }, [isAdmin]);
 
     return (
         <div className={styles.tableWrapper}>
@@ -126,3 +140,5 @@ export const LandmarkTable: React.FC<LandmarkTableProps> = ({data, isAdmin, onEd
         </div>
     );
 };
+
+export const LandmarkTable = memo(LandmarkTableComponent);

@@ -1,5 +1,5 @@
 import {Text} from '@gravity-ui/uikit';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {AddLandmarkForm} from '../components/AddLandmarkForm/AddLandmarkForm';
 import {LandmarkTable} from '../components/LandmarkTable/LandmarkTable';
 import {Landmark} from '../types/Landmark';
@@ -28,12 +28,14 @@ export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin
         fetchData();
     }, []);
 
-    const handleDelete = async (id: string) => {
-        await fetch(`http://localhost:3000/landmarks/${id}`, {
-            method: 'DELETE',
-        });
+    const handleEdit = useCallback((landmark: Landmark) => {
+        setEditingLandmark(landmark);
+    }, []);
+
+    const handleDelete = useCallback(async (id: string) => {
+        await fetch(`http://localhost:3000/landmarks/${id}`, {method: 'DELETE'});
         fetchData();
-    };
+    }, []);
 
     if (loading) return <p>Загрузка...</p>;
     if (error) return <p>Ошибка: {error}</p>;
@@ -46,7 +48,7 @@ export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin
             <LandmarkTable
                 data={landmarks}
                 isAdmin={isAdmin}
-                onEdit={(landmark) => setEditingLandmark(landmark)}
+                onEdit={handleEdit}
                 onDelete={handleDelete}
             />
             {isAdmin && (

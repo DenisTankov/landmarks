@@ -3,7 +3,7 @@ export interface Landmark {
     name: string;
     description: string;
     dateAdded: string;
-    rating: 1 | 2 | 3 | 4 | 5;
+    rating: number;
     photoUrl: string;
     location: string;
     latitude: number;
