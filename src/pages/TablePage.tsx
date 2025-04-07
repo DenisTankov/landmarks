@@ -3,6 +3,7 @@ import {AddLandmarkForm} from '../components/AddLandmarkForm/AddLandmarkForm';
 import {LandmarkTable} from '../components/LandmarkTable/LandmarkTable';
 import {Landmark} from '../types/Landmark';
 import {fetchLandmarks} from '../utils/fetchLandmarks';
+import styles from './TablePage.module.scss';
 
 export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin: () => void}) => {
     const [landmarks, setLandmarks] = useState<Landmark[]>([]);
@@ -37,22 +38,24 @@ export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin
     if (error) return <p>Ошибка: {error}</p>;
 
     return (
-        <div>
-            <h1>Достопримечательности</h1>
-            <LandmarkTable
-                data={landmarks}
-                isAdmin={isAdmin}
-                onEdit={(landmark) => setEditingLandmark(landmark)}
-                onDelete={handleDelete}
-            />
-            {isAdmin && (
-                <AddLandmarkForm
-                    onLandmarkAdded={fetchData}
-                    editingLandmark={editingLandmark}
-                    onEditingDone={() => setEditingLandmark(null)}
-                    onCloseAdmin={onExitAdmin}
+        <div className={styles.page}>
+            <div className={styles.content}>
+                <h1>Достопримечательности</h1>
+                <LandmarkTable
+                    data={landmarks}
+                    isAdmin={isAdmin}
+                    onEdit={(landmark) => setEditingLandmark(landmark)}
+                    onDelete={handleDelete}
                 />
-            )}
+                {isAdmin && (
+                    <AddLandmarkForm
+                        onLandmarkAdded={fetchData}
+                        editingLandmark={editingLandmark}
+                        onEditingDone={() => setEditingLandmark(null)}
+                        onCloseAdmin={onExitAdmin}
+                    />
+                )}
+            </div>
         </div>
     );
 };
