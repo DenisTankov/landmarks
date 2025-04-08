@@ -61,7 +61,6 @@
       "id": "078e"
     },
     {
-      "id": "45ab",
       "name": "Биг- Бен",
       "description": "часовая башня Вестминстерского дворца",
       "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7d/London%2C_Elizabeth_Tower_--_2016_--_4807.jpg?uselang=ru",
@@ -70,7 +69,8 @@
       "longitude": -0.1246,
       "rating": 2,
       "status": "в планах",
-      "dateAdded": "2025-04-07T17:55:39.378Z"
+      "dateAdded": "2025-04-07T17:55:39.378Z",
+      "id": "45ab"
     }
   ]
 }
