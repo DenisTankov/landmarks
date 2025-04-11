@@ -16,12 +16,9 @@ interface LandmarkTableProps {
     onDelete: (id: string) => void;
 }
 
-const LandmarkTableComponent: React.FC<LandmarkTableProps> = ({
-    data,
-    isAdmin,
-    onEdit,
-    onDelete,
-}) => {
+const LandmarkTableComponent: React.FC<LandmarkTableProps> = (props) => {
+    const {data, isAdmin, onEdit, onDelete} = props;
+
     const [mapLinks, setMapLinks] = useState<{[id: string]: string}>({});
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<string[]>([]);

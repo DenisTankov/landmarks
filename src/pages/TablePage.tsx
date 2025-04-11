@@ -6,7 +6,14 @@ import {Landmark} from '../types/Landmark';
 import {fetchLandmarks} from '../utils/fetchLandmarks';
 import styles from './TablePage.module.scss';
 
-export const TablePage = ({isAdmin, onExitAdmin}: {isAdmin: boolean; onExitAdmin: () => void}) => {
+type TablePageProps = {
+    isAdmin: boolean;
+    onExitAdmin: () => void;
+};
+
+export const TablePage = (props: TablePageProps) => {
+    const {isAdmin, onExitAdmin} = props;
+
     const [landmarks, setLandmarks] = useState<Landmark[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

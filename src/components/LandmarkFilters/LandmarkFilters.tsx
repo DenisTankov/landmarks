@@ -16,16 +16,18 @@ interface LandmarkFiltersProps {
     setSortAsc: (val: boolean) => void;
 }
 
-export const LandmarkFiltersComponent: React.FC<LandmarkFiltersProps> = ({
-    search,
-    setSearch,
-    statusFilter,
-    setStatusFilter,
-    sortKey,
-    setSortKey,
-    sortAsc,
-    setSortAsc,
-}) => {
+const LandmarkFiltersComponent: React.FC<LandmarkFiltersProps> = (props) => {
+    const {
+        search,
+        setSearch,
+        statusFilter,
+        setStatusFilter,
+        sortKey,
+        setSortKey,
+        sortAsc,
+        setSortAsc,
+    } = props;
+
     const statusOptions = [
         {value: '', content: 'Все'},
         {value: 'в планах', content: 'В планах'},

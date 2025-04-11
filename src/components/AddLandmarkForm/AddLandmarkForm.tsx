@@ -3,17 +3,16 @@ import {useLandmarkForm} from '../../hooks/useLandmarkForm';
 import {Landmark} from '../../types/Landmark';
 import styles from './AddLandmarkForm.module.scss';
 
-export const AddLandmarkForm = ({
-    onLandmarkAdded,
-    editingLandmark,
-    onEditingDone,
-    onCloseAdmin,
-}: {
+type AddLandmarkFormProps = {
     onLandmarkAdded: () => void;
     editingLandmark?: Landmark | null;
     onEditingDone?: () => void;
     onCloseAdmin?: () => void;
-}) => {
+};
+
+export const AddLandmarkForm = (props: AddLandmarkFormProps) => {
+    const {onLandmarkAdded, editingLandmark, onEditingDone, onCloseAdmin} = props;
+
     const {form, updateField, reset} = useLandmarkForm(editingLandmark);
 
     const handleSubmit = async (e: React.FormEvent) => {
